@@ -20,11 +20,30 @@ int[,,] NewMatrixArrRandThree(int line, int column, int depth)
             for (int k = 0; k < depth; k++)
             {
                 int value = rnd.Next(10, 100);
+                while (ArrayRepeatValuesReplace(newArr, value))
+                {
+                    value = rnd.Next(10, 100);
+                }
                 newArr[i, j, k] = value;
             }
         }
     }
     return newArr;
+}
+bool ArrayRepeatValuesReplace(int[,,] array, int value)
+{
+    Random rnd = new Random();
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int k = 0; k < array.GetLength(2); k++)
+            {
+                if (array[i, j, k] == value) return true;
+            }
+        }
+    }
+    return false;
 }
 void PrintMatrixArrayThree(int[,,] array)// печать двумерного массива int в виде таблицы
 {
